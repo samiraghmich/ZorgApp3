@@ -1,14 +1,19 @@
 package com.company;
 
+import java.util.ArrayList;
+
 public class Patient {
     private String surname;
     private String lastname;
     private int age;
     private double weight;
     private double length;
-    private String bmi;
+    private ArrayList<Medicine> medicineList = new ArrayList<>();
 
-//    Set function
+    public void addMedicine(Medicine medicine){
+        medicineList.add(medicine);
+    }
+//  Set function
     public void setSurname(String surnameGiven){
         surname = surnameGiven;
     }
@@ -33,10 +38,6 @@ public class Patient {
         length = lengthGiven;
     }
 
-    public void setBmi(String bmiGiven){
-        bmi = bmiGiven;
-    }
-
 //  Get function
     public String getSurname(){
         return surname;
@@ -58,38 +59,35 @@ public class Patient {
         return length;
     }
 
-    public String getBmi(){
-        return bmi;
-    }
-
-//    BMI Calculator
-public double calcBmi(){
-    double BMI = this.weight / this.length / this.length * 1000;
-    return BMI;
+//  BMI Calculator
+    public  double calculatorBmi(){
+        return 10000 * getWeight() / (getLength() * getLength());
 }
 
 
-
-    public Patient(String PatientsSurname, String PatientsLastname, int PatientsAge, double PatientsWeight, double PatientsLength, String PatientsBMI) {
-        surname = PatientsSurname;
-        lastname = PatientsLastname;
-        age = PatientsAge;
-        weight = PatientsWeight;
-        length = PatientsLength;
-        bmi= PatientsBMI;
+    public Patient(String patientSurname, String patientLastname, int patientAge, double patientWeight, double patientLength) {
+        surname = patientSurname;
+        lastname = patientLastname;
+        age = patientAge;
+        weight = patientWeight;
+        length = patientLength;
     }
 
-    public Patient(String PatientsSurname, String PatientsLastname) {
-        surname = PatientsSurname;
-        lastname = PatientsLastname;
+    public Patient(String patientsSurname, String patientsLastname) {
+        surname = patientsSurname;
+        lastname = patientsLastname;
     }
 
     public void writeln(){
         System.out.println(surname + " " + lastname);
     }
 
-    public void writeInformation(){
-    System.out.println(surname + " " + lastname + "\n" + age + "\n" + weight + " kg" + "\n" + length + " cm" + "\n" + bmi);
-}
-
+    public void writeInformation() {
+        System.out.println("\n" + surname + " " + lastname + "\n" + age + " years" + "\n" + weight + " kg" + "\n" + length + " cm");
+        System.out.format("BMI = %.2f", calculatorBmi());
+        for (int i =0; i <medicineList.size(); i++){
+            medicineList.get(i).writeMed();
+        }
+        System.out.println();
+        }
 }
